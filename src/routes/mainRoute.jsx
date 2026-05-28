@@ -1,18 +1,25 @@
 import { Routes, Route } from "react-router-dom";
 import UserLayout from "../layout/userLayout";
-import Home from "../pages/home";
+import Home from "../pages/user/home";
+import Register from "../pages/auth/Register";
+import Login from "../pages/auth/login";
+import ProtectedRoute from "./protected.route.jsx";
 
 const MainRoutes = () => {
   return (
     <Routes>
-      {/* This Route acts as the layout wrapper for all routes inside it */}
-      <Route element={<UserLayout />}>
-        <Route path="/" element={<Home />} />
+      {/* Protected Routes (Requires Authentication) */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
       </Route>
+
+      {/* --- Auth Routes (No Navbar) --- */}
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 };
 
 export default MainRoutes;
-
-
