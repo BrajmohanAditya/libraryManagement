@@ -1,11 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  loginApi,
-  registerApi,
-  logOutApi
-
-} from "../api/user.api";
-
+import { loginApi, registerApi, logOutApi, getUserApi } from "../api/user.api";
 
 import { toast } from "sonner";
 
@@ -23,8 +17,6 @@ export const userRegisterHook = () => {
     },
   });
 };
-
-
 
 export const userLoginHook = () => {
   return useMutation({
@@ -57,16 +49,11 @@ export const userLogoutHook = () => {
 };
 
 export const GetUserHook = () => {
+  const token = localStorage.getItem("token"); //
+
   return useQuery({
     queryKey: ["get-user"],
     queryFn: getUserApi,
-    onSuccess: (data) => {
-      toast.success(data.message);
-    },
-    onError: (error) => {
-      const message =
-        error.response?.data?.message || "Failed to fetch user data.";
-      toast.error(message);
-    },
+    enabled: !!token,
   });
 };

@@ -11,8 +11,9 @@ const Register = () => {
   const navigate = useNavigate();
   const registerFormHandler = (data) => {
     mutate(data, {
-      onSuccess: () => {
-        navigate("/verify-otp", { state: { email: data.email } });
+      onSuccess: (responseData) => {
+        localStorage.setItem("token", responseData.token);
+        navigate("/");
       },
     });
   };

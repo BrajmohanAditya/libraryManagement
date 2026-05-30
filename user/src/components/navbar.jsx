@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { userLogoutHook } from "../hooks/user.hook";
+import { userLogoutHook, GetUserHook  } from "../hooks/user.hook";
 
 
 const Navbar = () => {
@@ -18,11 +18,9 @@ const Navbar = () => {
       }
     });
   };
-
-  // For now, using a dummy user object so the dropdown always shows
-  const user = { name: 'vishal kumar', email: 'vishal97@gmail.com' };
+  const { data: userData } = GetUserHook();
+  const user = userData?.data;
   
-
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
