@@ -11,11 +11,13 @@ const Login = () => {
 
   const loginFormHandler = (data) => {
     mutate(data, {
-      onSuccess: () => {
-        navigate("/"); // Now this will successfully trigger!
+      onSuccess: (responseData) => { // <-- Grab the response data here
+        localStorage.setItem("token", responseData.token); // <-- Save the token!
+        navigate("/"); 
       },
     });
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-indigo-100 px-4">

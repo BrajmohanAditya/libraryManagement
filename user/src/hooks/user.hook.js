@@ -2,8 +2,11 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   loginApi,
   registerApi,
+  logOutApi
 
 } from "../api/user.api";
+
+
 import { toast } from "sonner";
 
 export const userRegisterHook = () => {

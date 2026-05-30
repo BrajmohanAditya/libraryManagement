@@ -16,8 +16,8 @@ const MainRoutes = () => {
       </Route>
 
       {/* --- Auth Routes (No Navbar) --- */}
-      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 };

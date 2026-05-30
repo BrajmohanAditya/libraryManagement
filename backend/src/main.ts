@@ -18,10 +18,11 @@ async function bootstrap() {
     transform: true,
   }));
 
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+app.enableCors({
+    origin: ['http://localhost:5173'],
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
   const config = new DocumentBuilder()

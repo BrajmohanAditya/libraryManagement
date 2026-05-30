@@ -1,13 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogoutHook } from "../hooks/user.hook";
+
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const { mutate: triggerLogout } = userLogoutHook();
+
+  const handleLogout = () => {
+    triggerLogout(null, {
+      onSuccess: () => {
+        // When the token is deleted, send them back to login!
+        navigate("/login"); 
+      }
+    });
+  };
 
   // For now, using a dummy user object so the dropdown always shows
   const user = { name: 'vishal kumar', email: 'vishal97@gmail.com' };
+  
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -72,7 +86,10 @@ const Navbar = () => {
               
               {/* Logout */}
               <div className="px-2">
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors">
+                <button 
+                  onClick={handleLogout}
+                  className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
+                >
                   Logout
                 </button>
               </div>
